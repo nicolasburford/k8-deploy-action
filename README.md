@@ -12,7 +12,6 @@ name: deploy
 jobs:
   name: deploy to cluster
     runs-on: ubuntu-latest
-    needs: push
     steps:
     - name: deploy to cluster
       uses: nicolasburford/k8-deploy-action@master
