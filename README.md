@@ -38,7 +38,11 @@ kubectl describe secret default-token-4nxl7
 ## Inputs
 
 `apiServer` - (required)
+
 `namespace` - (required)
+
 `deployment` - (required)
+
 `container` - (required)
+
 `image` - (required)
