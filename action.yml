@@ -1,5 +1,22 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
+inputs:
+  apiServer:  # id of input
+    description: 'k8 server'
+    required: true
+  namespace:  # id of input
+    description: 'k8 namespace'
+    required: false
+    default: 'default'
+  deployment:  # id of input
+    description: 'k8 deployment'
+    required: true
+  container:  # id of input
+    description: 'k8 container'
+    required: true
+  image:  # id of input
+    description: 'k8 image'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
