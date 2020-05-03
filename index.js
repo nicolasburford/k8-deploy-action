@@ -1,7 +1,5 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
 const k8s = require('@kubernetes/client-node');
-// const config = require('config');
 
 const main = async () => {
   const kc = new k8s.KubeConfig();
