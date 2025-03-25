@@ -1,4 +1,3 @@
-const axios = require('axios');
 const https = require('https');
 
 let config = {};
@@ -8,19 +7,19 @@ const setConfig = (inconf) => {
 }
 
 const getDeployment = (deployment) => {
-  return axios.get(`https://${config.apiServer}/apis/apps/v1/namespaces/${config.namespace}/deployments/${deployment}`, {
+  return fetch(`https://${config.apiServer}/apis/apps/v1/namespaces/${config.namespace}/deployments/${deployment}`, {
     headers: {
       Authorization: `Bearer ${config.token}`
     },
-    httpsAgent: new https.Agent({
+    agent: new https.Agent({
       rejectUnauthorized: false
     })
-  }).then(res => {
-    return res.data
-  }).catch(err => {
-    console.log(err);
-
-  })
+  }).then(res => res.json())
+    .then(data => {
+      return data;
+    }).catch(err => {
+      console.log(err);
+    });
 }
 
 const updateImage = ({deployment, container, image}) => {
@@ -43,17 +42,22 @@ const updateImage = ({deployment, container, image}) => {
       } 
     } 
   }
-  return axios.patch(`https://${config.apiServer}/apis/apps/v1/namespaces/${config.namespace}/deployments/${deployment}`, data, {
+  return fetch(`https://${config.apiServer}/apis/apps/v1/namespaces/${config.namespace}/deployments/${deployment}`, {
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${config.token}`,
       'Content-Type':'application/strategic-merge-patch+json'
     },
-    httpsAgent: new https.Agent({
+    body: JSON.stringify(data),
+    agent: new https.Agent({
       rejectUnauthorized: false
     })
-  }).then(res=>{
-    return res.data
-  })
+  }).then(res => res.json())
+    .then(data => {
+      return data;
+    }).catch(err => {
+      console.log(err);
+    });
 }
 
 module.exports = {
