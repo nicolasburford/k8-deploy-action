@@ -11,7 +11,7 @@ const getDeployment = (deployment) => {
     headers: {
       Authorization: `Bearer ${config.token}`
     },
-    agent: new https.Agent({
+    dispatcher: new https.Agent({
       rejectUnauthorized: false
     })
   }).then(res => res.json())
